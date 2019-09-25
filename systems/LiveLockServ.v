@@ -1476,7 +1476,9 @@ Section LockServ.
   Proof using.
     decide equality; apply fin_eq_dec.
   Qed.
-  
+
+  Set Lax CoInductive Match.
+
   Lemma messages_trigger_labels :
     forall l p,
       message_enables_label p l ->
@@ -1534,6 +1536,8 @@ Section LockServ.
       now find_apply_lem_hyp always_now.
   Qed.
 
+  Unset Lax CoInductive Match.
+
   Ltac coinductive_case CIH :=
     apply W_tl; simpl in *; auto;
     apply CIH; simpl in *; auto.
@@ -1557,6 +1561,8 @@ Section LockServ.
     induction l; intros; solve_by_inversion.
   Qed.
     
+  Set Lax CoInductive Match.
+
   Lemma clients_only_move_up_in_queue :
     forall n c s,
       lb_step_execution lb_step_async s ->
@@ -1670,6 +1676,8 @@ Section LockServ.
     - unfold occurred in *. congruence.
   Qed.
 
+  Unset Lax CoInductive Match.
+
   Lemma Unlock_enables_MsgUnlock :
     forall n,
       message_enables_label (mkPacket n Server Unlock) MsgUnlock.
@@ -1766,6 +1774,8 @@ Section LockServ.
     find_inversion. eauto.
   Qed.
   
+  Set Lax CoInductive Match.
+
   Lemma InputUnlock_enabled :
     forall s c,
       lb_step_execution lb_step_async s ->
@@ -1781,6 +1791,8 @@ Section LockServ.
     eapply LabeledStepAsync_input with (h := (Client c)) (inp := Unlock); eauto.
   Qed.
 
+  Unset Lax CoInductive Match.
+
   Lemma InputUnlock_continuously_enabled :
     forall s c,
       lb_step_execution lb_step_async s ->
@@ -1793,6 +1805,8 @@ Section LockServ.
       [|eapply always_inv; eauto; eauto using lb_step_execution_invar];
       eauto using InputUnlock_enabled.
   Qed.
+
+  Set Lax CoInductive Match.
 
   Lemma held_until_Unlock :
     forall c s,
@@ -1849,6 +1863,8 @@ Section LockServ.
     - coinductive_case CIH.
       congruence.
   Qed.
+
+  Unset Lax CoInductive Match.
 
   Lemma held_eventually_InputUnlock :
     forall c s,
@@ -1959,6 +1975,8 @@ Section LockServ.
     - congruence.
   Qed.
 
+  Set Lax CoInductive Match.
+
   Lemma eventually_Unlock :
     forall n c s,
       event_step_star step_async step_async_init (hd s) ->
@@ -1998,6 +2016,8 @@ Section LockServ.
     - eauto using E0.
   Qed.
   
+  Unset Lax CoInductive Match.
+
   Lemma eventually_MsgUnlock :
     forall n c s,
       event_step_star step_async step_async_init (hd s) ->
@@ -2059,6 +2079,8 @@ Section LockServ.
       eauto using clients_only_move_up_in_queue.
   Qed.
 
+  Set Lax CoInductive Match.
+
   Lemma clients_move_way_up_in_queue :
     forall n n' c s,
       n' <= n ->
@@ -2102,6 +2124,8 @@ Section LockServ.
       + subst. unfold and_tl in *. intuition.
         eauto using clients_move_up_in_queue.
   Qed.
+
+  Unset Lax CoInductive Match.
 
   Lemma clients_get_lock_messages :
     forall n c s,
@@ -2162,6 +2186,8 @@ Section LockServ.
     unfold label_silent. simpl. congruence.
   Qed.
 
+  Set Lax CoInductive Match.
+
   Lemma InputLock_eventually_MsgLock :
     forall c s,
       lb_step_execution lb_step_async s ->
@@ -2176,6 +2202,8 @@ Section LockServ.
     eauto using E_next, Lock_in_network_eventually_MsgLock,
        lb_step_execution_invar, weak_fairness_invar.
   Qed.
+
+  Unset Lax CoInductive Match.
 
   Lemma Nth_snoc :
     forall A (l : list A) x,
@@ -2224,6 +2252,8 @@ Section LockServ.
       break_exists. intuition; congruence.
     - unfold occurred in *. congruence.
   Qed.
+
+  Set Lax CoInductive Match.
 
   Lemma MsgLock_Locked :
     forall c s,
@@ -2312,6 +2342,8 @@ Section LockServ.
       intuition.
     - eauto using MsgLock_eventually_MsgLocked.
   Qed.
+
+  Unset Lax CoInductive Match.
 
   (* label + state-based correctness theorem *)
   Theorem locking_clients_eventually_receive_lock_st :

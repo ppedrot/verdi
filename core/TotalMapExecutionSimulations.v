@@ -152,6 +152,8 @@ apply: (@Cons_lb_step_exec _ _ _ _ _ _ (List.map tot_map_trace_occ tr)) => /=.
   exact: c.
 Qed.
 
+Set Lax CoInductive Match.
+
 Lemma tot_map_net_label_event_inf_often_occurred :
   forall l s,
     inf_often (now (occurred l)) s ->
@@ -190,9 +192,13 @@ apply: eventually_map_conv => //.
   exact: tot_map_label_injective.
 Qed.
 
+Unset Lax CoInductive Match.
+
 Context {fail_fst : FailureParams (@unlabeled_multi_params _ labeled_multi_fst)}.
 Context {fail_snd : FailureParams (@unlabeled_multi_params _ labeled_multi_snd)}.
 Context {fail_map_congr : FailureParamsTotalMapCongruency fail_fst fail_snd base_map}.
+
+Set Lax CoInductive Match.
 
 Lemma tot_map_net_hd_step_failure_star_always : 
   forall s, event_step_star step_failure step_failure_init (hd s) ->
@@ -207,6 +213,8 @@ apply: step_failure_star_lb_step_execution.
   by have <-: evt_a e = (fst (evt_a e), snd (evt_a e)) by destruct e, evt_a.
 exact: lb_step_trace_execution_lb_step_failure_tot_map_net_infseq.
 Qed.
+
+Unset Lax CoInductive Match.
 
 (* lb_step_ordered_failure *)
 
@@ -305,6 +313,8 @@ apply: (@Cons_lb_step_exec _ _ _ _ _ _ (List.map tot_map_trace tr)) => /=.
   exact: c.
 Qed.
 
+Set Lax CoInductive Match.
+
 Lemma tot_map_onet_label_event_inf_often_occurred :
   forall l s,
     inf_often (now (occurred l)) s ->
@@ -318,6 +328,9 @@ rewrite /= /occurred /=.
 move => H_eq.
 by rewrite H_eq.
 Qed.
+
+Set Lax CoInductive Match.
+
 
 Lemma tot_map_onet_label_event_inf_often_occurred_conv :
   forall l s,

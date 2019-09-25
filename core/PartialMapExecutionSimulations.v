@@ -437,6 +437,8 @@ apply: Cons_lb_step_exec => /=.
   exact: c.
 Qed.
 
+Set Lax CoInductive Match.
+
 Lemma pt_map_onet_tot_map_label_event_inf_often_occurred :
   forall l s,
     inf_often (now (occurred l)) s ->
@@ -467,12 +469,16 @@ apply: eventually_map_conv => //.
   exact: tot_map_label_injective.
 Qed.
 
+Unset Lax CoInductive Match.
+
 Hypothesis lb_step_ordered_failure_strong_fairness_enabled_pt_map_onet_eventually :
   forall l, tot_map_label l <> label_silent ->
     forall s, lb_step_execution lb_step_ordered_failure s ->
     strong_fairness lb_step_ordered_failure label_silent s ->
     enabled lb_step_ordered_failure (tot_map_label l) (pt_map_onet_event (hd s)) ->
     eventually (now (enabled lb_step_ordered_failure l)) s.
+
+Set Lax CoInductive Match.
 
 Lemma pt_map_onet_tot_map_labeled_event_inf_often_enabled :
   forall l, tot_map_label l <> label_silent ->
@@ -504,12 +510,16 @@ apply: eventually_map_conv_ext.
   exact: lb_step_ordered_failure_strong_fairness_enabled_pt_map_onet_eventually.
 Qed.
 
+Unset Lax CoInductive Match.
+
 Hypothesis lb_step_ordered_failure_weak_fairness_always_enabled_pt_map_onet_continuously : 
   forall l, tot_map_label l <> label_silent -> 
     forall s, lb_step_execution lb_step_ordered_failure s ->
     weak_fairness lb_step_ordered_failure label_silent s ->
     always (now (enabled lb_step_ordered_failure (tot_map_label l))) (map pt_map_onet_event s) ->
     continuously (now (enabled lb_step_ordered_failure l)) s.
+
+Set Lax CoInductive Match.
 
 Lemma pt_map_onet_tot_map_labeled_event_state_continuously_enabled :
   forall l, tot_map_label l <> label_silent ->    
@@ -537,6 +547,8 @@ apply: eventually_map_conv_ext => {s}.
   simpl in *.
   exact: lb_step_ordered_failure_weak_fairness_always_enabled_pt_map_onet_continuously.
 Qed.
+
+Unset Lax CoInductive Match.
 
 Lemma pt_map_onet_tot_map_label_event_strong_fairness :
   forall s, lb_step_execution lb_step_ordered_failure s ->
@@ -594,6 +606,8 @@ simpl in *.
 exact: step_ordered_failure_pt_mapped_simulation_star_1.
 Qed.
 
+Set Lax CoInductive Match.
+
 Lemma pt_map_onet_hd_step_ordered_failure_star_always : 
   forall s, event_step_star step_ordered_failure step_ordered_failure_init (hd s) ->
        lb_step_execution lb_step_ordered_failure s ->
@@ -603,6 +617,8 @@ case => e s H_star H_exec.
 apply: step_ordered_failure_star_lb_step_execution; first exact: pt_map_onet_hd_step_ordered_failure_star.
 exact: lb_step_execution_lb_step_ordered_failure_pt_map_onet_infseq.
 Qed.
+
+Unset Lax CoInductive Match.
 
 (* lb_step_ordered_dynamic_failure *)
 
@@ -820,6 +836,8 @@ apply: Cons_lb_step_exec => /=.
   exact: c.
 Qed.
 
+Set Lax CoInductive Match.
+
 Lemma pt_map_odnet_tot_map_label_event_inf_often_occurred :
   forall l s,
     inf_often (now (occurred l)) s ->
@@ -850,12 +868,16 @@ apply: eventually_map_conv => //.
   exact: tot_map_label_injective.
 Qed.
 
+Unset Lax CoInductive Match.
+
 Hypothesis lb_step_ordered_dynamic_failure_strong_fairness_enabled_pt_map_onet_eventually :
   forall l, tot_map_label l <> label_silent ->
     forall s, lb_step_execution lb_step_ordered_dynamic_failure s ->
     strong_fairness lb_step_ordered_dynamic_failure label_silent s ->
     enabled lb_step_ordered_dynamic_failure (tot_map_label l) (pt_map_odnet_event (hd s)) ->
     eventually (now (enabled lb_step_ordered_dynamic_failure l)) s.
+
+Set Lax CoInductive Match.
 
 Lemma pt_map_odnet_tot_map_labeled_event_inf_often_enabled :
   forall l, tot_map_label l <> label_silent ->
@@ -887,12 +909,16 @@ apply: eventually_map_conv_ext.
   exact: lb_step_ordered_dynamic_failure_strong_fairness_enabled_pt_map_onet_eventually.
 Qed.
 
+Unset Lax CoInductive Match.
+
 Hypothesis lb_step_ordered_dynamic_failure_weak_fairness_always_enabled_pt_map_onet_continuously : 
   forall l, tot_map_label l <> label_silent -> 
     forall s, lb_step_execution lb_step_ordered_dynamic_failure s ->
     weak_fairness lb_step_ordered_dynamic_failure label_silent s ->
     always (now (enabled lb_step_ordered_dynamic_failure (tot_map_label l))) (map pt_map_odnet_event s) ->
     continuously (now (enabled lb_step_ordered_dynamic_failure l)) s.
+
+Set Lax CoInductive Match.
 
 Lemma pt_map_odnet_tot_map_labeled_event_state_continuously_enabled :
   forall l, tot_map_label l <> label_silent ->    
@@ -920,6 +946,8 @@ apply: eventually_map_conv_ext => {s}.
   simpl in *.
   exact: lb_step_ordered_dynamic_failure_weak_fairness_always_enabled_pt_map_onet_continuously.
 Qed.
+
+Unset Lax CoInductive Match.
 
 Lemma pt_map_odnet_tot_map_label_event_strong_fairness :
   forall s, lb_step_execution lb_step_ordered_dynamic_failure s ->
@@ -974,6 +1002,8 @@ simpl in *.
 exact: step_ordered_dynamic_failure_pt_mapped_simulation_star_1.
 Qed.
 
+Set Lax CoInductive Match.
+
 Lemma pt_map_odnet_hd_step_ordered_dynamic_failure_star_always : 
   forall s, event_step_star step_ordered_dynamic_failure step_ordered_dynamic_failure_init (hd s) ->
        lb_step_execution lb_step_ordered_dynamic_failure s ->
@@ -983,5 +1013,7 @@ case => e s H_star H_exec.
 apply: step_ordered_dynamic_failure_star_lb_step_execution; first exact: pt_map_odnet_hd_step_ordered_dynamic_failure_star.
 exact: lb_step_execution_lb_step_ordered_dynamic_failure_pt_map_odnet_infseq.
 Qed.
+
+Unset Lax CoInductive Match.
 
 End PartialMapExecutionSimulations.

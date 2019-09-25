@@ -147,6 +147,8 @@ Section LabeledStepExecution.
   exact: extensional_now.
   Qed.
 
+  Set Lax CoInductive Match.
+
   Lemma strong_fairness_weak :
     forall step silent s, strong_fairness step silent s -> weak_fairness step silent s.
   Proof using.
@@ -157,6 +159,8 @@ Section LabeledStepExecution.
   apply: H_str; first by [].
   exact: continuously_inf_often.
   Qed.
+
+  Unset Lax CoInductive Match.
 
   CoInductive lb_step_execution (step : lb_step_relation) : infseq event -> Prop :=
     Cons_lb_step_exec : forall (e e' : event) (tr : list trace) (s : infseq event),
@@ -171,6 +175,8 @@ Section LabeledStepExecution.
     intros step x s e. change (lb_step_execution step (tl (Cons x s))).
     destruct e; simpl. assumption. 
   Qed.
+
+  Set Lax CoInductive Match.
 
   Lemma lb_step_execution_extensional :
     forall step, extensional (lb_step_execution step).
@@ -191,6 +197,8 @@ Section LabeledStepExecution.
   by apply: c; eauto.
   Qed.
 
+  Unset Lax CoInductive Match.
+
   Definition event_step_star (step : step_relation A trace) (init : A) (e : event) :=
     refl_trans_1n_trace step init (evt_a e) (evt_trace e).
  
@@ -199,6 +207,8 @@ Section LabeledStepExecution.
      refl_trans_1n_trace step init a tr' ->
      lb_step a l a' tr ->
      refl_trans_1n_trace step init a' (tr' ++ tr).
+
+  Set Lax CoInductive Match.
 
   Lemma step_star_lb_step_execution :
     forall lb_step step init,
@@ -226,6 +236,9 @@ Section LabeledStepExecution.
     move: H_exec'.
     apply: lb_step_execution_invar.
   Qed.
+
+  Unset Lax CoInductive Match.
+
 End LabeledStepExecution.
 
 Section LabeledStepAsync.
